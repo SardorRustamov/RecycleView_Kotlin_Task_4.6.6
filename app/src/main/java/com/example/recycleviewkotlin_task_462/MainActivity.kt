@@ -3,6 +3,7 @@ package com.example.recycleviewkotlin_task_462
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -27,8 +28,9 @@ class MainActivity : AppCompatActivity() {
         val adapter = RecyclerAdapter()
         adapter.setList(models)
 
-        val grd = GridLayoutManager(this, 3)
+        val lnr = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = grd
+        recyclerView.layoutManager = lnr
+        recyclerView.isNestedScrollingEnabled
     }
 }
