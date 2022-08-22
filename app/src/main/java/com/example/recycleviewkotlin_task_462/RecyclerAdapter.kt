@@ -1,16 +1,18 @@
 package com.example.recycleviewkotlin_task_462
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerAdapter(val activity: MainActivity, model: MutableList<RecyclerModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var list = ArrayList<RecyclerModel>()
+    var recyclerModel = ArrayList<RecyclerModel>()
     fun setList(newList: List<RecyclerModel?>) {
-        list = newList as ArrayList<RecyclerModel>
+        recyclerModel = newList as ArrayList<RecyclerModel>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -19,28 +21,35 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val model = list[position]
-        (holder as MyViewHolder).bind(model)
+        val model = recyclerModel[position]
+
+        if (holder is MyViewHolder){
+            val tvTitle = holder.tvTitle
+            val tvDesc=holder.tvDesc
+            val lay_click=holder.lay_click
+
+            tvTitle?.setText(model.title)
+            tvDesc?.setText(model.description)
+            lay_click?.setOnClickListener(View.OnClickListener {
+                activity.openItemDetails(recyclerModel)
+            })
+        }
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return recyclerModel.size
     }
-
 
     class MyViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         var tvTitle: TextView? = null
         var tvDesc: TextView? = null
+        var lay_click: LinearLayout?=null
 
         init {
-            tvTitle = itemView.findViewById(R.id.title)
-            tvDesc = itemView.findViewById(R.id.description)
-        }
-
-        fun bind(model: RecyclerModel) {
-            tvTitle!!.text = model.title
-            tvDesc!!.setText(model.description)
+            lay_click=itemView.findViewById(R.id.ln_click)
+            tvTitle = itemView.findViewById(R.id.tv_item_description)
+            tvDesc = itemView.findViewById(R.id.tv_item_title)
         }
     }
 }

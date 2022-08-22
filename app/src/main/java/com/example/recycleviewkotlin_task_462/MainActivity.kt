@@ -1,8 +1,8 @@
 package com.example.recycleviewkotlin_task_462
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,14 +23,21 @@ class MainActivity : AppCompatActivity() {
         models.add(RecyclerModel("Title9", "Desc9"))
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
-        val adapter = RecyclerAdapter()
+        val adapter = RecyclerAdapter(this, models)
         adapter.setList(models)
 
         val lnr = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = lnr
-        recyclerView.isNestedScrollingEnabled
     }
+
+    fun openItemDetails(recyclerModel: ArrayList<RecyclerModel>){
+        val member = Member("Sardor", "R")
+        val intent = Intent(this, ProfileActivity::class.java)
+        intent.putExtra("member", member)
+        startActivity(intent)
+    }
+
 }
