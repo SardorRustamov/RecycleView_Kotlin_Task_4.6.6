@@ -1,6 +1,5 @@
 package com.example.recycleviewkotlin_task_462
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
